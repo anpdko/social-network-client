@@ -1,0 +1,106 @@
+@import '../../assets/scss/variables.scss';
+
+.nav{
+   padding: $border-radius 1rem;
+   display: flex;
+   justify-content: space-between;
+   gap: 7px;
+   align-items: center;
+   border-bottom: 2px solid var(--color-grey);
+}
+
+.plus{
+   font-size: 13px;
+   width: 14px;
+   height: 14px;
+   border: 2px solid white;
+   border-radius: 5px;
+   display: flex;
+   align-items: flex-end;
+   justify-content: center;
+   margin-top: 2px;
+}
+
+.logo{
+   margin: 0 20px 0 0;
+   padding: 0;
+   cursor: pointer;
+   user-select: none;
+}
+
+.logo_svg{
+   height: 37px;
+   width: auto;
+   fill: var(--text-color);
+   // stroke: var(--text-color);
+   // stroke-width: 70px;
+}
+
+.nav_left{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   .nav_left_main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      input[type="text"] {
+         background-color: var(--color-grey);
+      }
+   
+      .icon_input{
+         color: $color-font-light;
+      }
+   }
+}
+
+.icon_user{
+   position: relative;
+   z-index: 2;
+   display: flex;
+   align-items: center;
+   .toggle{
+      position: absolute;
+      z-index: 2;
+      margin: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+   }
+   .toggle:hover{
+      cursor: pointer;
+   }
+}
+
+@media screen and (max-width: $laptop-md) {
+   .nav_left{
+      gap: 12px;
+      .nav_left_main{
+         gap: 12px;
+      }
+   }
+   
+   /* Бургер */
+   .menu_btn > span,
+   .menu_btn > span::before,
+   .menu_btn > span::after {
+      position: relative;
+      display: block;
+      width: 2rem;
+      height: 0.2rem;
+      background-color: #616161;
+      transition-duration: .25s;
+   }
+   .menu_btn > span::before {
+      content: '';
+      top: -0.7rem;
+   }
+   .menu_btn > span::after {
+      content: '';
+      top: 0.5rem;
+   }
+}

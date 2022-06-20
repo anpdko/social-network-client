@@ -1,0 +1,16 @@
+@import '../../../assets/scss/variables.scss';
+
+.icon {
+   border-radius: $border-radius;
+   width: $size-icon;
+   height: $size-icon;
+   cursor: pointer;
+   object-fit: cover;
+   object-position: center center;
+}
+
+.icon:hover{
+   cursor: pointer;
+   transition: linear 0.3s;
+   box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+}

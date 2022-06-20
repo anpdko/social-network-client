@@ -1,0 +1,104 @@
+@import '../../assets/scss/variables.scss';
+
+.textarea{
+   outline: none;
+   padding: 4px 0;
+   display: flex;
+   flex-wrap: wrap;
+
+   .editor_container{
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      .editor{
+         flex: 1;
+         height: 2.3rem;
+         transition: all 0.3s ease-in;
+         overflow-y: auto;
+         padding-top: 8px;
+      }
+      .editor.active{
+         transition: all 0.5s ease-out;
+         height: max(100px, 300px);
+      }
+
+      .editor::-webkit-scrollbar{
+         width: 10px;
+         border-radius: 10px;
+      }
+      .editor::-webkit-scrollbar-thumb{
+         border-radius: 10px;
+         background-color: $color-font-light;
+      }
+      .editor::-webkit-scrollbar-track{
+         background-color: $color-background-main;
+      }
+   }
+
+   .btn_group{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      width: auto;
+
+      .btn_editor{
+         // display: flex;
+         // flex-wrap: wrap;
+         // gap: 7px;
+         display: grid;
+         width: 100%;
+         grid-template-columns: repeat(auto-fill, 38px);
+         grid-auto-flow: dense;
+      }
+
+      ul{
+         display: flex;
+         margin: 5px 0;
+         padding: 0;
+         gap: 1px;
+
+         li{
+            list-style: none;
+            padding:  4px 8px;
+            border: 2px solid $color-blue;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none; 
+            box-shadow: 0 5px 10px 2px rgba(0,0,0,0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
+         li:first-of-type{
+            border-radius: 10px 4px 4px 10px;
+         }
+         li:last-of-type{
+            border-radius: 4px 10px 10px 4px;
+         }
+         li.is-active{
+            background-color: $color-blue;
+            color: white;
+         }
+         li:hover{
+            transform: scale(1.1);
+            box-shadow: 0 3px 5px 2px rgba(0,0,0,0.15);
+         }
+      }
+   }
+
+   .btn_group.hide{
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .btn_editor{
+         display: none;
+      }
+   }
+
+   .btn_group.show{
+      margin-top: 20px;
+      flex-basis: 100%;
+   }
+}

@@ -1,0 +1,136 @@
+@import '../../assets/scss/variables.scss';
+
+$background-color-box: var(--background-color);
+
+.sidebar{
+   flex-basis: $width-sidebar;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.user_block{
+   background-color: $background-color-box;
+   border-radius: $border-radius;
+   box-shadow: 0 0 25px 10px rgba(0,0,0,0.05);
+   font-weight: 900;
+   padding: $border-radius 2rem;
+   a{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+   }
+}
+
+.menu {
+   background-color: $background-color-box;
+   border-radius: $border-radius;
+   box-shadow: 0 0 25px 10px rgba(0,0,0,0.05);
+   font-weight: 900;
+   padding: $border-radius 0;
+   ul{
+      padding: 0;
+      margin: 0;
+      position: relative;
+
+      .border_icon{
+         border: 2px solid $color-font-light;
+         color: $color-font-light;
+         border-radius: 5px;
+         padding: 2px;
+         font-size: 1.25rem;
+      }
+
+      li{
+         cursor: pointer;
+         list-style: none;
+         padding: 0 2rem;
+         border-left: 2px solid transparent;
+         position: relative;
+         .menu_link{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 2px solid var(--color-grey);
+            padding: 1rem 0;
+         }
+      } 
+      li:last-child .menu_link{
+         border-bottom: 0px;
+      }
+      li.active {
+         box-sizing: border-box;
+         left: -3px;
+         width: calc(100% + 3px);
+         border-left: 3px solid $color-blue;
+         background-color: var(--color-background-main-hover);
+      }
+   }
+}
+
+@media screen and (max-width: $laptop-md) {
+   .menu{
+      width: calc(100vw - 10px);
+   }
+   .sidebar {
+      transition: 0.2s ease-in;
+      background-color: var(--color-background-main);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      margin-right: -18px;
+      z-index: 3;
+      li{
+         width: calc(100vw - 55px);
+      }
+   }
+
+   .sidebar.active{
+      transition: 0.4s ease-out;
+      width: 100%;
+   }
+
+   .user_block{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0;
+      padding-right: 1.2rem;
+      margin-left: -5px;
+      
+      /* Бургер */
+      .menu_btn > span,
+      .menu_btn > span::before,
+      .menu_btn > span::after {
+         position: relative;
+         display: block;
+         width: 2rem;
+         height: 0.2rem;
+         background-color: #616161;
+         transition-duration: .6s;
+      }
+      .menu_btn > span::before {
+         content: '';
+         top: -10px;
+      }
+      .menu_btn > span::after {
+         content: '';
+         top: 8px;
+      }
+
+      /* Анимация бургера  */
+      .menu_btn.active > span{
+         transform: rotate(45deg);
+      }
+      .menu_btn.active > span::before{
+         top: 0;
+         transform: rotate(0);
+      }
+      .menu_btn.active > span::after{
+         top: -3px;
+         transform: rotate(90deg);
+      }
+   }
+ }
+ 

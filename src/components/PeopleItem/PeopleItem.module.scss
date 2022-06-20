@@ -1,0 +1,39 @@
+@import "../../assets/scss/variables.scss";
+
+.people_item{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 20px;
+   .user{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      
+      .info_user{
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         gap: 5px;
+         h3 {
+            margin: 0;
+         }
+         span{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+         }
+         svg{
+            font-size: 1.3rem;
+            color: $color-font-light;
+            padding: 0.15rem;
+         }
+      }
+   }
+}
+
+@media screen and (max-width: $laptop-sm) {
+   .text_btn{
+      display: none;
+   }
+}

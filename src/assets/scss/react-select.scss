@@ -1,0 +1,48 @@
+@import "./variables.scss";
+
+.custom-select {
+   &__single-value{
+      color: var(--text-color) !important;
+   }
+
+   &__control {
+      border-radius: $border-radius !important;
+      background-color: var(--background-color) !important;
+      color: var(--text-color) !important;
+      padding: $padding-page/3 !important;
+      font-size: 1rem !important;
+      border: 2px solid transparent !important;
+      width: 100% !important;
+      
+   }
+   &__input{
+      color: var(--text-color) !important;
+   }
+   &__menu {
+      border-radius: $border-radius !important;
+      margin: 4px 0 !important;
+      background-color: var(--background-color) !important;
+      color: var(--text-color) !important;
+   }
+   &__menu-list{
+      padding: 0 !important;
+   }
+
+   &__option {
+      padding: $padding-page !important;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border: 2px solid transparent !important;
+      cursor: pointer !important;
+   }
+
+
+   &__option:first-child {
+      border-radius: $border-radius $border-radius 0 0 !important;
+   }
+
+   &__option:last-child {
+      border-radius: 0 0 $border-radius $border-radius !important;
+   }
+}

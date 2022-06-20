@@ -1,0 +1,15 @@
+:root[data-theme="light"] {
+   --background-color: #ffffff;
+   --text-color: #1C1E21;
+   --color-background-main: #fafbfc;
+   --color-background-main-hover: var(--color-background-main);
+   --color-grey: #f4f5f8;
+ }
+ 
+ :root[data-theme="dark"] {
+   --background-color: #191c21; // Самый темный
+   --text-color: #e5e5e4;
+   --color-background-main: #212833; // Светлее background-color
+   --color-background-main-hover: #1a222b;
+   --color-grey: #2c3443;
+ }

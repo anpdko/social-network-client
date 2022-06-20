@@ -1,0 +1,10 @@
+@import "../../assets/scss/variables.scss";
+
+.form{
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   h3{
+      margin: 0;
+   }
+}

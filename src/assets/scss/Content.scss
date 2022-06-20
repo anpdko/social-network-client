@@ -1,0 +1,163 @@
+@import './variables.scss';
+
+// .ProseMirror:is(:focus, :valid){
+//    transition: 0.4s ease-out;
+//    height: 160px;
+// }
+
+.ProseMirror{
+   box-sizing: border-box;
+   width: 100%;
+   font-size: 1rem;
+   outline: none;
+   resize: none;
+   border-color: transparent;
+   transition: 0.3s ease-in;
+   overflow-y: auto;
+}
+
+.ProseMirror, .postText {
+   * {
+     margin: 0.2em 0;
+     word-break: break-word;
+     word-wrap: break-word;
+     overflow-wrap: break-word;
+   }
+ 
+   ul,
+   ol {
+     padding: 0 1rem;
+   }
+ 
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     line-height: 1;
+   }
+
+   h1{
+      font-size: 2rem;
+   }
+ 
+   code {
+     background-color: rgba(#616161, 0.1);
+     color: #616161;
+   }
+
+   .code-block select{
+      padding: 4px 8px;
+      border-radius: $border-radius;
+      font-weight: 600;
+      background-color: $color-background-main;
+   }
+
+   .code-block select::-webkit-scrollbar{
+      width: 10px;
+      border-radius: 10px;
+   }
+   .code-block select::-webkit-scrollbar-thumb{
+      border-radius: 10px;
+      background-color: $color-font-light;
+   }
+   .code-block select::-webkit-scrollbar-track{
+      background-color: $color-background-main;
+   }
+ 
+   pre {
+      background: #373c45;
+      color: #fff;
+      font-family: "JetBrainsMono", monospace;
+      padding: 0.75rem 1rem;
+      border-radius: $border-radius;
+  
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+  
+      .hljs-comment,
+      .hljs-quote {
+        color: #616161;
+      }
+  
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-attribute,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-regexp,
+      .hljs-link,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class {
+        color: #f98181;
+      }
+  
+      .hljs-number,
+      .hljs-meta,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params {
+        color: #fbbc88;
+      }
+  
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet {
+        color: #b9f18d;
+      }
+  
+      .hljs-title,
+      .hljs-section {
+        color: #faf594;
+      }
+  
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #70cff8;
+      }
+  
+      .hljs-emphasis {
+        font-style: italic;
+      }
+  
+      .hljs-strong {
+        font-weight: 700;
+      }
+    }
+ 
+   img {
+      display: block;
+      margin: 8px auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: $border-radius;
+   }
+ 
+   hr {
+     margin: 1rem 0;
+   }
+ 
+   blockquote {
+     padding-left: 1rem;
+     border-left: 2px solid rgba(#0D0D0D, 0.1);
+   }
+}
+
+
+
+//placeholder
+.ProseMirror p.is-editor-empty:first-child::before {
+   color: #adb5bd;
+   content: attr(data-placeholder);
+   float: left;
+   height: 0;
+   pointer-events: none;
+ }
