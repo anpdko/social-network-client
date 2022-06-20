@@ -18,17 +18,17 @@ const useRouters = (isLogin) => {
          <section className='main'>
             <SidebarUser/>
             <Routes>
-               <Route path={'/'} element={<Home/>}/>
-               <Route path={'/mypage'} element={<UserPage/>}/>
+               <Route exact path='/' element={<Home/>}/>
+               <Route path='/mypage' element={<UserPage/>}/>
                <Route path='/user/:id' element={<UserPage/>}/>
-               <Route path={'/settings'} element={<SettingsPage/>} />
-               <Route path={'/bookmark'} element={<Bookmark/>}/>
-               <Route path={'/people'} element={<PeoplePage/>}/>
-               <Route path={'/people/followers/:id'} element={<PeoplePage/>}/>
-               <Route path={'/people/following/:id'} element={<PeoplePage/>}/>
+               <Route path='/settings' element={<SettingsPage/>} />
+               <Route path='/bookmark' element={<Bookmark/>}/>
+               <Route path='/people' element={<PeoplePage/>}/>
+               <Route path='/people/followers/:id' element={<PeoplePage/>}/>
+               <Route path='/people/following/:id' element={<PeoplePage/>}/>
                <Route path="/auth/login" element={<Navigate to={'/'}/>} />
                <Route path="/auth/register" element={<Navigate to={'/'}/>} />
-               <Route path={'/error'} element={<Error404/>}/>
+               <Route path='/error' element={<Error404/>}/>
                <Route path="*" element={<Navigate to={'error'}/>} />
             </Routes>
          </section>
@@ -36,13 +36,13 @@ const useRouters = (isLogin) => {
    }
    return (
       <Routes>
-         <Route path={'/'} element={ 
+         <Route exact path='/' element={ 
             <section className='main'>
                <SidebarGlobalUser/>
                <HomeGlobal/>
             </section>
          }/>
-         <Route path={'/auth/*'} element={<AuthPage/>}/>
+         <Route path='/auth/*' element={<AuthPage/>}/>
          <Route path="*" element={<Navigate to={'/auth/login'}/>} />
       </Routes>
    )
