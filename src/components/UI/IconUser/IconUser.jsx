@@ -10,7 +10,7 @@ const IconUser = ({img, className, ...props}) => {
       setImgError(!!!img)
    }, [img])
    return (
-      <img {...props} onError={()=>setImgError(false)} className={styles.icon+" "+className} src={imgError?userImg:IMG_URL+img} alt="User"/>
+      <img {...props} onError={()=>setImgError(false)} className={styles.icon+" "+className} src={imgError?userImg:(IMG_URL+img)} alt="User"/>
    );
 };
 export default IconUser
