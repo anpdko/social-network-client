@@ -7,10 +7,8 @@ import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import {PencilFill} from 'react-bootstrap-icons'
 import styles from './SettingsPage.module.scss'
-import axios from 'axios';
-import authHeader from '../../services/Auth/header'
-
-const API_URL = process.env.REACT_APP_API_URL 
+import uploadImg from '../../services/Upload/upload.services'
+ 
 
 const SettingsPage = () => {
    const dispatch = useDispatch()
@@ -30,20 +28,14 @@ const SettingsPage = () => {
    const sendApload = useCallback(async () => {
       if(!!img){
          try{
-            const data = new FormData()
-            data.append('avatar', img)
-            await axios.post(API_URL + 'api/user/upload', data, {
-               headers: {
-                  'content-type': 'mulpipart/form-data',
-                  ...authHeader()
-               }
-            })
-            .then(res => {
-               dispatch(authChangeImgUrlAvater(res.data.path))
+            const res = await uploadImg(img, 'user', 120)
+            if(!!res){
+               dispatch(authChangeImgUrlAvater(res.data))
                alert("Фото успешно загружено!")
-            })
+            }
          }catch(err) {
             console.log(err)
+            alert("Ошибка загрузки картинки на сервер, попробуйте позже!")
          }
       }
    }, [img])

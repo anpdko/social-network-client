@@ -16,11 +16,3 @@ function App() {
 }
 
 export default App;
-
-
-// import { ArrowRight } from 'react-bootstrap-icons';
-// <ArrowRight color="royalblue" size={96} />
-
-/* <Button type="empty">Hello</Button>
-<Button type="fill">H</Button>
-<Loader style={{margin: "80px auto"}}/> */

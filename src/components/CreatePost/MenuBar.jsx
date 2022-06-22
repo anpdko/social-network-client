@@ -1,9 +1,8 @@
 import React from 'react'
 import {TextCenter, TextRight, TextLeft, TypeItalic, TypeBold, TypeH1, TypeH2, TypeH3, Type, Code, Justify, Image, FileEarmarkImage} from 'react-bootstrap-icons'
-import axios from 'axios';
-import authHeader from '../../services/Auth/header'
+import uploadImg from '../../services/Upload/upload.services'
 
-const API_URL = process.env.REACT_APP_API_URL 
+const IMG_URL = process.env.REACT_APP_GOOGLE_DRIVE_IMG_URL
 
 const MenuBar = ({ editor }) => {
 
@@ -20,27 +19,18 @@ const MenuBar = ({ editor }) => {
   }
 
   const uploadImage = async (event) => {
-    var img = event.target.files[0];
-    if(!!img){
-      try{
-          const data = new FormData()
-          data.append('img', img)
-          await axios.post(API_URL + 'api/posts/upload', data, {
-            headers: {
-                'content-type': 'mulpipart/form-data',
-                ...authHeader()
-            }
-          })
-          .then(res => {
-            const url = API_URL + 'static/images/' + res.data.filename
-            if (url) {
-              editor.chain().focus().setImage({ src: url }).run()
-            }
-          })
-      }catch(err) {
-          console.log(err)
-          alert("Ошибка загрузки картинки на сервер, попробуйте позже!")
+    const img = event.target.files[0];
+    try{
+      const res = await uploadImg(img, 'posts')
+      if(!!res){
+        const url = IMG_URL + res.data
+        if (url) {
+          editor.chain().focus().setImage({ src: url, alt: "Изображение не найдено" }).run()
+        }
       }
+    }catch(err) {
+        console.log(err)
+        alert("Ошибка загрузки картинки на сервер, попробуйте позже!")
     }
   }
 
