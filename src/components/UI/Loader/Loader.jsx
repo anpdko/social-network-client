@@ -3,7 +3,9 @@ import styles from './Loader.module.scss'
 
 const Loader = ({style}) => {
    return (
-      <div style={style} className={styles.loader}>Loading...</div>
+      <div className={styles.back_loader}>
+         <div style={style} className={styles.loader}>Loading...</div>
+      </div>
    );
 };
 
