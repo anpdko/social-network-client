@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {TextCenter, TextRight, TextLeft, TypeItalic, TypeBold, TypeH1, TypeH2, TypeH3, Type, Code, Justify, Image, FileEarmarkImage} from 'react-bootstrap-icons'
 import uploadImg from '../../services/Upload/upload.services'
+import Loader from '../UI/Loader/Loader';
 
 const IMG_URL = process.env.REACT_APP_GOOGLE_DRIVE_IMG_URL
 
 const MenuBar = ({ editor }) => {
+  const [isLoader, setIsLoader] = useState(false)
 
    if (!editor) {
       return null
@@ -19,6 +21,7 @@ const MenuBar = ({ editor }) => {
   }
 
   const uploadImage = async (event) => {
+    setIsLoader(true)
     const img = event.target.files[0];
     try{
       const res = await uploadImg(img, 'posts')
@@ -27,6 +30,7 @@ const MenuBar = ({ editor }) => {
         if (url) {
           editor.chain().focus().setImage({ src: url, alt: "Изображение не найдено" }).run()
         }
+        setIsLoader(false)
       }
     }catch(err) {
         console.log(err)
@@ -77,7 +81,9 @@ const MenuBar = ({ editor }) => {
             <Code/>
           </li>
           <li onClick={addImage}><Image/></li>
-          <li style={{position: "relative",}}><FileEarmarkImage/><input 
+          {isLoader
+            ?<Loader/>
+            :<li style={{position: "relative",}}><FileEarmarkImage/><input 
               onChange={uploadImage}
               type="file"
               style={{
@@ -92,6 +98,8 @@ const MenuBar = ({ editor }) => {
                 
               }}
           /></li>
+            
+          }
         </ul>
      </React.Fragment>
    );

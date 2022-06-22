@@ -16,6 +16,7 @@ const SettingsPage = () => {
    const { user } = useSelector((state) => state.user);
    const [discription, setDiscription] = useState(null)
    const [img, setImage] = useState(null)
+   const [isLoader, setIsLoader] = useState(false)
 
    useEffect(() => {
       dispatch(getUser(userAuth.userId))
@@ -26,12 +27,13 @@ const SettingsPage = () => {
    }, [user])
 
    const sendApload = useCallback(async () => {
+      setIsLoader(true)
       if(!!img){
          try{
             const res = await uploadImg(img, 'user', 120)
             if(!!res){
                dispatch(authChangeImgUrlAvater(res.data))
-               alert("Фото успешно загружено!")
+               setIsLoader(false)
             }
          }catch(err) {
             console.log(err)
@@ -42,7 +44,7 @@ const SettingsPage = () => {
 
    return (
       <main className="contant box">
-         {user
+         {user && !isLoader
             ?<div>
                <ul>
                   <li>ID: {user._id}</li>
