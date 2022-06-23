@@ -11,7 +11,7 @@ const ListPost = ({posts}) => {
    return (
       <div className={styles.container_posts}>
          {loading
-            ?<Loader style={{margin: '0 auto'}}/>
+            ?<Loader/>
             :error
                ?<h2>Ошибка загрузки данных.</h2>
                :posts.map(post => 

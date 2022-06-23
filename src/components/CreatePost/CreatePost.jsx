@@ -87,7 +87,7 @@ const CreatePost = () => {
                <div className={styles.btn_editor}>
                   <MenuBar editor={editor} />
                </div>
-               <Button style={{flex: "0 0 10rem", boxSizing: "border-box"}} type="fill" onClick={onCreate}><Link45deg/>Добавить</Button>
+               <Button style={{flex: "1 0 auto", boxSizing: "border-box"}} type="fill" onClick={onCreate}><Link45deg/>Добавить</Button>
             </div>
          </div>
       </div>

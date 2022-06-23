@@ -4,6 +4,7 @@ import PeopleItem from '../../components/PeopleItem/PeopleItem'
 import { getPeople, getPeopleFollowers, getPeopleFollowing } from '../../store/people/peopleSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom'
+import Loader from '../../components/UI/Loader/Loader'
 
 const PeoplePage = () => {
    const dispatch = useDispatch()
@@ -34,7 +35,7 @@ const PeoplePage = () => {
             ?people.map(user => 
                <PeopleItem key={user._id} infoUser = {user}/>
             )
-            :<h2>Список пользователей не найден</h2>
+            :<Loader/>
          }
       </div>
    );

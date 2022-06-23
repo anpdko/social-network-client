@@ -76,13 +76,13 @@ const MenuBar = ({ editor }) => {
             <Justify/>
           </li>
         </ul>
-        <ul style={{gridColumnStart: "span 2"}}>
+        <ul style={{gridColumnStart: "span 3"}}>
           <li onClick={() => editor.chain().focus().toggleCodeBlock().run()} className={editor.isActive('codeBlock') ? 'is-active' : ''}>
             <Code/>
           </li>
           <li onClick={addImage}><Image/></li>
           {isLoader
-            ?<Loader/>
+            ?<Loader back={true}/>
             :<li style={{position: "relative",}}><FileEarmarkImage/><input 
               onChange={uploadImage}
               type="file"
@@ -94,7 +94,8 @@ const MenuBar = ({ editor }) => {
                 left: 0,
                 right: 0,
                 zIndex: 2,
-                background: "red"
+                background: "red",
+                overflow: "hidden"
                 
               }}
           /></li>

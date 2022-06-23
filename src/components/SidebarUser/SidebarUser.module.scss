@@ -79,7 +79,7 @@ $background-color-box: var(--background-color);
       top: 0;
       bottom: 0;
       width: 0;
-      margin-right: -18px;
+      margin-right: -$padding-page + $padding-page-w-md;
       z-index: 3;
       li{
          width: calc(100vw - 55px);

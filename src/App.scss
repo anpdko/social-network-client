@@ -34,7 +34,6 @@ a{
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-  
 }
 
 .contant{
@@ -54,18 +53,19 @@ a{
 
 
 
-
-
-
 @media screen and (max-width: $laptop-md) {
   .main {
       flex-direction: row-reverse;
+      padding: $padding-page $padding-page-w-md;
       gap: 0px;
+  }
+  .contant{
+    gap: 15px
   }
 }
 
-// @media screen and (max-width: 800px) {
-//   body {
-//       font-size:90%;
-//   }
-// }
+@media screen and (max-width: $laptop-sm) {
+  .box{
+    padding: $padding-box-sm;
+  }
+}

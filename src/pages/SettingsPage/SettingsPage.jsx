@@ -30,7 +30,7 @@ const SettingsPage = () => {
       setIsLoader(true)
       if(!!img){
          try{
-            const res = await uploadImg(img, 'user', 120)
+            const res = await uploadImg(img, 'user', 220)
             if(!!res){
                dispatch(authChangeImgUrlAvater(res.data))
                setIsLoader(false)
@@ -44,30 +44,32 @@ const SettingsPage = () => {
 
    return (
       <main className="contant box">
-         {user && !isLoader
-            ?<div>
-               <ul>
-                  <li>ID: {user._id}</li>
-                  <li>Email: {user.email}</li>
-                  <li>Имя: {user.name}</li>
-               </ul>
-               <form className={styles.form}>
-                  <h3>Фото профиля:</h3>
-                  <input 
-                     className={styles.file} 
-                     onChange={e => setImage(e.target.files[0])}
-                     type="file"
-                  />
+         {user 
+            ? !isLoader
+               ?<div>
+                  <ul>
+                     <li>ID: {user._id}</li>
+                     <li>Email: {user.email}</li>
+                     <li>Имя: {user.name}</li>
+                  </ul>
+                  <form className={styles.form}>
+                     <h3>Фото профиля:</h3>
+                     <input 
+                        className={styles.file} 
+                        onChange={e => setImage(e.target.files[0])}
+                        type="file"
+                     />
 
-                  <h3>Описание:</h3>
-                  {discription !== null && discription !== undefined &&
-                     <Input onChange={(e)=>setDiscription(e.target.value)} value={discription} icon={<PencilFill/>}/>
-                  }
-                  <div>
-                     <Button onClick={sendApload}  type="fill">Сохранить изменения</Button>
-                  </div>
-               </form>
-            </div>
+                     <h3>Описание:</h3>
+                     {discription !== null && discription !== undefined &&
+                        <Input onChange={(e)=>setDiscription(e.target.value)} value={discription} icon={<PencilFill/>}/>
+                     }
+                     <div>
+                        <Button onClick={sendApload}  type="fill">Сохранить изменения</Button>
+                     </div>
+                  </form>
+               </div>
+               : <Loader back={true}/>
             :<Loader/>
          }
       </main>
