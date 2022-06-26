@@ -14,6 +14,7 @@ const MyPage = () => {
    const isBottom = usePageBottom();
    const [page, setPage] = useState(1)
    const dispatch = useDispatch()
+   const { userId } = useSelector((state) => state.auth.user) 
    const { posts, loading } = useSelector((state) => state.posts)
    const youUserId = useParams().id
    const infoUser = useSelector((state) => state.user.user)
@@ -40,7 +41,7 @@ const MyPage = () => {
          {infoUser
             ?<React.Fragment>
                <HeaderUser infoUser = {infoUser}/>
-               {!!!youUserId && <CreatePost/>}
+               {youUserId === userId && <CreatePost/>}
                <ListPost posts = {posts} page={page}/>
             </React.Fragment>
             :<Loader />

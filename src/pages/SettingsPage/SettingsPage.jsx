@@ -30,7 +30,7 @@ const SettingsPage = () => {
       setIsLoader(true)
       if(!!img){
          try{
-            const res = await uploadImg(img, 'user', 220)
+            const res = await uploadImg(img, 'user', 520)
             if(!!res){
                dispatch(authChangeImgUrlAvater(res.data))
                setIsLoader(false)
