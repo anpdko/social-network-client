@@ -14,7 +14,7 @@ const AuthPageLogin = () => {
    const {register, handleSubmit, formState: {errors}} = useForm();
 
    const [loading, setLoading] = useState(false);
-   const { message} = useSelector((state) => state.auth);
+   const { message } = useSelector((state) => state.auth);
    const dispatch = useDispatch();
 
    useEffect(() => {

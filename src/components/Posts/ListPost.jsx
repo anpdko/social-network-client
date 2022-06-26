@@ -15,13 +15,15 @@ const ListPost = ({posts, page}) => {
       <div className={styles.container_posts}>
          {error !== null && error !== " "
             ?<React.Fragment>
-               {isLoggedIn
-                  ?posts.length && posts.map(post => 
-                     <ItemPost key={post._id} post={post} user={user.userId}/>
-                  )
-                  :posts.length && posts.map(post => 
-                     <ItemPostGlobal key={post._id} post={post}/>
-                  )
+               {posts.length
+                  ?isLoggedIn
+                     ?posts.map(post => 
+                        <ItemPost key={post._id} post={post} user={user.userId}/>
+                     )
+                     :posts.map(post => 
+                        <ItemPostGlobal key={post._id} post={post}/>
+                     )
+                  : !loading && <h2>Список постов пуст</h2>
                }
                {loading && <Loader />}
             </React.Fragment>

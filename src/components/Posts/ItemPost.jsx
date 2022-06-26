@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Post.module.scss'
 import IconUser from '../UI/IconUser/IconUser';
 import {Heart, HeartFill, ChatRight, ShareFill, Bookmark, BookmarkFill, ThreeDots} from 'react-bootstrap-icons'
@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 const ItemPost = ({post, user}) => {
    const dispatch = useDispatch()
-
    return (
       <div className='box'>
          <div className={styles.title_box}> 
@@ -24,7 +23,8 @@ const ItemPost = ({post, user}) => {
             </Link>
             <AlertMenu 
                className={styles.threeDots}
-               items={user === post.userId?[
+               items={user === post.userId
+               ?[
                   {
                      onClick: () => dispatch(delayPost(post._id)),
                      value: "Удалить пост"
@@ -33,7 +33,8 @@ const ItemPost = ({post, user}) => {
                      onClick: () => console.log("Жалоба на пост"),
                      value: "Пожаловаться"
                   }
-               ]:[
+               ]
+               :[
                   {
                      onClick: () => console.log("Жалоба на пост"),
                      value: "Пожаловаться"

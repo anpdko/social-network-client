@@ -41,7 +41,7 @@ const Navbar = () => {
                   <Theme/>
                   <AlertMenu items={[
                         {
-                           onClick: () => navigator('/mypage'),
+                           onClick: () => navigator('/user/'+user.userId),
                            value: "Мой профиль"
                         },
                         {

@@ -8,6 +8,9 @@ const IconUser = ({img, className, ...props}) => {
    const [imgError, setImgError] = useState(!!!img)
    useEffect(()=>{
       setImgError(!!!img)
+      if(img === null){
+         setImgError(true)
+      }
    }, [img])
    return (
       <img {...props} onError={()=>setImgError(false)} className={styles.icon+" "+className} src={imgError?userImg:(IMG_URL+img)} alt="User"/>
