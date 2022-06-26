@@ -5,10 +5,13 @@ import {getPosts, getPostsFollowing} from '../../store/post/postSlice'
 import CreatePost from '../../components/CreatePost/CreatePost'
 import Select from 'react-select'
 import '../../assets/scss/react-select.scss'
+import usePageBottom from '../../hooks/usePageBottom'
 
 const Home = () => {
    const dispatch = useDispatch()
-   const { posts } = useSelector((state) => state.posts)
+   const { posts, loading } = useSelector((state) => state.posts)
+   const isBottom = usePageBottom();
+   const [page, setPage] = useState(1)
    const options = [
       { value: '1', label: 'Все новости' },
       { value: '2', label: 'Новости для меня' },
@@ -16,14 +19,17 @@ const Home = () => {
    const [sorted, setSorted] = useState(options[0])
    
    useEffect(()=>{
-      dispatch(getPosts())
-   }, [dispatch])
+      if ((isBottom || page === 1) && !loading) {
+         dispatch(getPosts({page: page}))
+         setPage(page+1)
+      }
+   }, [dispatch, isBottom])
 
    const changeSelect = (e) => {
       if(sorted.value !== e.value){
          setSorted(e)
          if(e.value === "1"){
-            dispatch(getPosts())
+            dispatch(getPosts({page: 1}))
          }
          else if(e.value === "2"){
             dispatch(getPostsFollowing())
@@ -51,10 +57,7 @@ const Home = () => {
                 })}
             />
          </div>
-         {posts.length 
-            ?<ListPost posts={posts}/>
-            :<h2>Посты не найдены</h2>
-         }
+         <ListPost posts={posts} page={page}/>
       </main>
    );
 };

@@ -19,7 +19,6 @@ const useRouters = (isLogin) => {
             <SidebarUser/>
             <Routes>
                <Route exact path='/' element={<Home/>}/>
-               <Route path='/mypage' element={<UserPage/>}/>
                <Route path='/user/:id' element={<UserPage/>}/>
                <Route path='/settings' element={<SettingsPage/>} />
                <Route path='/bookmark' element={<Bookmark/>}/>

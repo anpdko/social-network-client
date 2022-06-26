@@ -10,12 +10,9 @@ const PeoplePage = () => {
    const dispatch = useDispatch()
    const youUserId = useParams().id
    const locationPage = useLocation().pathname.split('/')[2]
-   const { people } = useSelector(state => state.people)
+   const { people, loading } = useSelector(state => state.people)
 
    useEffect(()=>{
-      // dispatch(getPeople())
-      // console.log(youUserId)
-      // console.log(locationPage)
       if(!!youUserId && locationPage === 'followers'){
          console.log('followers')
          dispatch(getPeopleFollowers(youUserId))
@@ -31,11 +28,13 @@ const PeoplePage = () => {
 
    return (
       <div className={styles.people_list}>
-         {people.length 
-            ?people.map(user => 
-               <PeopleItem key={user._id} infoUser = {user}/>
-            )
-            :<Loader/>
+         {loading
+            ?<Loader/>
+            :people.length 
+               ?people.map(user => 
+                  <PeopleItem key={user._id} infoUser = {user}/>
+               )
+               :<h2>Пользователи отсутствуют</h2>
          }
       </div>
    );

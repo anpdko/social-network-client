@@ -3,20 +3,29 @@ import styles from './Post.module.scss'
 import Loader from '../../components/UI/Loader/Loader'
 import { useSelector } from 'react-redux'
 import ItemPost from './ItemPost';
+import ItemPostGlobal from './ItemPostGlobal';
 
-const ListPost = ({posts}) => {
+const ListPost = ({posts, page}) => {
+   page = page || 1
+   const { isLoggedIn } = useSelector((state) => state.auth)
    const { loading, error} = useSelector((state) => state.posts)
    const { user } = useSelector(state => state.auth)
 
    return (
       <div className={styles.container_posts}>
-         {loading
-            ?<Loader/>
-            :error
-               ?<h2>Ошибка загрузки данных.</h2>
-               :posts.map(post => 
-                  <ItemPost key={post._id} post={post} user={user.userId}/>
-               )
+         {error !== null && error !== " "
+            ?<React.Fragment>
+               {isLoggedIn
+                  ?posts.length && posts.map(post => 
+                     <ItemPost key={post._id} post={post} user={user.userId}/>
+                  )
+                  :posts.length && posts.map(post => 
+                     <ItemPostGlobal key={post._id} post={post}/>
+                  )
+               }
+               {loading && <Loader />}
+            </React.Fragment>
+            : <h2>Ошибка загрузки данных.</h2>
          }
       </div>
    );

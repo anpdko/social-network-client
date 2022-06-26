@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './SidebarUser.module.scss'
 import { PersonFill, HouseDoorFill, GearFill, ArrowRightCircleFill, BookmarkFill, PeopleFill } from 'react-bootstrap-icons'
-import {Link, useLocation} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import {authLogout} from '../../store/auth/authSlice'
 import IconUser from '../UI/IconUser/IconUser'
 import { useSelector, useDispatch } from 'react-redux'
@@ -26,7 +26,7 @@ const SidebarUser = () => {
          title: 'Мои записи',
          active: false,
          icon: <PersonFill className={styles.border_icon}/>,
-         link: '/mypage',
+         link: '/user/' + user.userId,
          onClick: ()=>{}
       },
       {
@@ -76,10 +76,10 @@ const SidebarUser = () => {
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
          <div className={styles.user_block}>
-            <Link to="/mypage" onClick={()=>isActive(2)}>
+            <NavLink to={"/user" + user.userId} onClick={()=>isActive(2)}>
                <IconUser img={user.imgUrlAvatar}/>
                <p>{user.name?user.name:"Неизвестный"}</p>
-            </Link>
+            </NavLink>
             <label className= {toggleMenu?styles.menu_btn+" "+styles.active:styles.menu_btn } onClick={()=>dispatch(changeTogleMenu())}>
                <span></span>
             </label>
@@ -92,10 +92,10 @@ const SidebarUser = () => {
                      className={item.active?styles.active:''}
                      onClick={item.onClick}
                   >
-                     <Link to={item.link} className={styles.menu_link} onClick={()=>isActive(item.id)}>
+                     <NavLink to={item.link} className={styles.menu_link} onClick={()=>isActive(item.id)}>
                         {item.icon}
                         {item.title}
-                     </Link>
+                     </NavLink>
                   </li>
                )}
                <li onClick={() => dispatch(authLogout())}>

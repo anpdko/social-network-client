@@ -12,26 +12,6 @@ const initialState = {
    error: null
 }
 
-export const getGlobalPosts = createAsyncThunk(
-   'posts/getPosts',
-   async (_, thunkAPI) => {
-      try{
-         const res = await axios.get(API_URL + 'api/posts/global/all')
-         if(res.statusText !== 'OK'){
-            throw new Error('Server error');
-         }
-         thunkAPI.dispatch(setPosts(res.data))
-      }
-      catch(error){
-         if(authService.isAuth(error.response.status)){
-            thunkAPI.dispatch(authLogout())
-         }
-         else{
-            return thunkAPI.rejectWithValue(error.message)
-         }
-      }
-   }
-)
 
 export const getBookmarkPosts = createAsyncThunk(
    'posts/getBookmarkPosts',
@@ -58,15 +38,40 @@ export const getBookmarkPosts = createAsyncThunk(
 
 export const getPosts = createAsyncThunk(
    'posts/getPosts',
-   async (_, thunkAPI) => {
+   async ({page}, thunkAPI) => {
       try{
-         const res = await axios.get(API_URL + 'api/posts/all', {
+         const res = await axios.get(API_URL + 'api/posts/all?page='+ page, {
             headers: authHeader()
          })
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         thunkAPI.dispatch(setPosts(res.data))
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
+      }
+      catch(error){
+         if(authService.isAuth(error.response.status)){
+            thunkAPI.dispatch(authLogout())
+         }
+         else{
+            return thunkAPI.rejectWithValue(error.message)
+         }
+      }
+   }
+)
+
+export const getGlobalPosts = createAsyncThunk(
+   'posts/getPosts',
+   async ({page}, thunkAPI) => {
+      try{
+         const res = await axios.get(API_URL + 'api/posts/global/all?page='+ page)
+         if(res.statusText !== 'OK'){
+            throw new Error('Server error');
+         }
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -104,15 +109,17 @@ export const getPostsFollowing = createAsyncThunk(
 
 export const getPostsUser = createAsyncThunk(
    'posts/getPostsUser',
-   async (userId, thunkAPI) => {
+   async ({userId, page}, thunkAPI) => {
       try{
-         const res = await axios.get(API_URL + 'api/posts/all/'+ userId, {
+         const res = await axios.get(`${API_URL}api/posts/all/${userId}?page=${page}`, {
             headers: authHeader()
          })
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         thunkAPI.dispatch(setPosts(res.data))
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -214,7 +221,12 @@ export const postSlice = createSlice({
    initialState,
    reducers: {
       setPosts: (state, action) => {
-         state.posts = action.payload
+         // console.log("Заменяю. Страница: ", action.payload.page)
+         state.posts = action.payload.posts
+      },
+      addArrPosts: (state, action) => {
+         // console.log("Добавляю. Страница: ", action.payload.page)
+         state.posts = [...state.posts, ...action.payload.posts]
       },
       addPost: (state, action) => {
          state.posts.unshift({...action.payload, like: 0, countLike: 0})
@@ -244,6 +256,7 @@ export const postSlice = createSlice({
       }
    },
    extraReducers: {
+      //getPosts
       [getPosts.pending]: (state) => {
          state.loading = true
          state.error = ''
@@ -256,6 +269,7 @@ export const postSlice = createSlice({
          state.error = action.payload
       },
 
+      //getGlobalPosts
       [getGlobalPosts.pending]: (state) => {
          state.loading = true
          state.error = ''
@@ -268,6 +282,7 @@ export const postSlice = createSlice({
          state.error = action.payload
       },
       
+      //getPostsUser
       [getPostsUser.pending]: (state) => {
          state.loading = true
          state.error = ''
@@ -280,6 +295,20 @@ export const postSlice = createSlice({
          state.error = action.payload
       },
 
+      //getBookmarkPosts
+      [getBookmarkPosts.pending]: (state) => {
+         state.loading = true
+         state.error = ''
+      },
+      [getBookmarkPosts.fulfilled]: (state) => {
+         state.loading = false
+      },
+      [getBookmarkPosts.rejected]: (state, action) => {
+         state.loading = false;
+         state.error = action.payload
+      },
+
+      //createPost
       [createPost.pending]: (state) => {
          state.loading = true
          state.error = ''
@@ -294,6 +323,6 @@ export const postSlice = createSlice({
    }
 })
 
-export const { setPosts, addPost, removePost, bookmaekPost, likePost } = postSlice.actions
+export const { setPosts, addArrPosts, addPost, removePost, bookmaekPost, likePost } = postSlice.actions
 
 export default postSlice.reducer

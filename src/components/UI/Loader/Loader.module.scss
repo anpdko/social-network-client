@@ -31,7 +31,7 @@ $size: 1;
   animation: load7 1.8s infinite ease-in-out;
 }
 .loader {
-  margin: 0 auto;
+  margin: -25px auto 40px auto;
   color: $color-blue;;
   font-size: $size-loader;
   text-indent: -9999em;
