@@ -86,15 +86,17 @@ export const getGlobalPosts = createAsyncThunk(
 
 export const getPostsFollowing = createAsyncThunk(
    'posts/getPosts',
-   async (_, thunkAPI) => {
+   async ({page}, thunkAPI) => {
       try{
-         const res = await axios.get(API_URL + 'api/posts/following', {
+         const res = await axios.get(`${API_URL}api/posts/following?page=${page}`, {
             headers: authHeader()
          })
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         thunkAPI.dispatch(setPosts(res.data))
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
       }
       catch(error){
          if(authService.isAuth(error.response.status)){

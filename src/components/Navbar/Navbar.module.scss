@@ -1,12 +1,31 @@
 @import '../../assets/scss/variables.scss';
 
 .nav{
-   padding: $border-radius 1rem;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   z-index: 10;
+}
+
+.nav_container{
+   background-color: var(--background-color);
+   padding: $border-radius 0;
+   margin: 0 $padding-page;
    display: flex;
    justify-content: space-between;
    gap: 7px;
    align-items: center;
    border-bottom: 2px solid var(--color-grey);
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+@media screen and (max-width: $laptop-md) {
+   .nav_container {
+      padding: $border-radius $padding-page-w-md;
+      margin: 0;
+   }
 }
 
 .plus{

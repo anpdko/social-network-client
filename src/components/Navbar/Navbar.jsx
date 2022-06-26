@@ -26,48 +26,50 @@ const Navbar = () => {
 
    return (
       <nav className={styles.nav}>
-         {/* <h3 className={styles.logo}>Logo</h3> */}
-         <Logo className={styles.logo_svg}/>
-         {isLoggedIn
-            ?<div className={styles.nav_left}>
-               <div className={styles.nav_left_main}>
-                  <Input 
-                     icon={<Search className={styles.icon_input}/>} 
-                     placeholder="Поиск"
-                     type="text"
-                     value = {textSearch}
-                     onChange = {(e) => setTextSearch(e.target.value)}
-                  />
+         <div className= {styles.nav_container}>
+            {/* <h3 className={styles.logo}>Logo</h3> */}
+            <Logo className={styles.logo_svg}/>
+            {isLoggedIn
+               ?<div className={styles.nav_left}>
+                  <div className={styles.nav_left_main}>
+                     <Input 
+                        icon={<Search className={styles.icon_input}/>} 
+                        placeholder="Поиск"
+                        type="text"
+                        value = {textSearch}
+                        onChange = {(e) => setTextSearch(e.target.value)}
+                     />
+                     <Theme/>
+                     <AlertMenu items={[
+                           {
+                              onClick: () => navigator('/user/'+user.userId),
+                              value: "Мой профиль"
+                           },
+                           {
+                              onClick: () => dispatch(authLogout()),
+                              value: "Выйти",
+                           }
+                        ]} 
+                        className={styles.icon_user}
+                     >
+                        <IconUser img={user?.imgUrlAvatar}/>
+                        {/* <IconUser className={styles.toggle}/> */}
+                     </AlertMenu>
+                  </div>
+                  <label className= {styles.menu_btn} onClick={()=>dispatch(changeTogleMenu())}>
+                     <span></span>
+                  </label>
+               </div>
+               :<React.Fragment>
                   <Theme/>
-                  <AlertMenu items={[
-                        {
-                           onClick: () => navigator('/user/'+user.userId),
-                           value: "Мой профиль"
-                        },
-                        {
-                           onClick: () => dispatch(authLogout()),
-                           value: "Выйти",
-                        }
-                     ]} 
-                     className={styles.icon_user}
-                  >
-                     <IconUser img={user?.imgUrlAvatar}/>
-                     {/* <IconUser className={styles.toggle}/> */}
-                  </AlertMenu>
-               </div>
-               <label className= {styles.menu_btn} onClick={()=>dispatch(changeTogleMenu())}>
-                  <span></span>
-               </label>
-            </div>
-            :<React.Fragment>
-               <Theme/>
-               <div className={styles.nav_left}>
-                  <Link to={'/auth/login'}>
-                     <Button type="fill"><span>Войти</span></Button>
-                  </Link>
-               </div>
-            </React.Fragment>
-         }
+                  <div className={styles.nav_left}>
+                     <Link to={'/auth/login'}>
+                        <Button type="fill"><span>Войти</span></Button>
+                     </Link>
+                  </div>
+               </React.Fragment>
+            }
+         </div>
       </nav>
    );
 };

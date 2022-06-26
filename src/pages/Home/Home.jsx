@@ -10,8 +10,9 @@ import usePageBottom from '../../hooks/usePageBottom'
 const Home = () => {
    const dispatch = useDispatch()
    const { posts, loading } = useSelector((state) => state.posts)
-   const isBottom = usePageBottom();
    const [page, setPage] = useState(1)
+   const isBottom = usePageBottom();
+
    const options = [
       { value: '1', label: 'Все новости' },
       { value: '2', label: 'Новости для меня' },
@@ -20,7 +21,12 @@ const Home = () => {
    
    useEffect(()=>{
       if ((isBottom || page === 1) && !loading) {
-         dispatch(getPosts({page: page}))
+         if(sorted.value === "1"){
+            dispatch(getPosts({page: page}))
+         }
+         else if(sorted.value === "2"){
+            dispatch(getPostsFollowing({page: page}))
+         }
          setPage(page+1)
       }
    }, [dispatch, isBottom])
@@ -32,8 +38,9 @@ const Home = () => {
             dispatch(getPosts({page: 1}))
          }
          else if(e.value === "2"){
-            dispatch(getPostsFollowing())
+            dispatch(getPostsFollowing({page: 1}))
          }
+         setPage(2)
       }
    } 
 

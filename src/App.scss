@@ -29,6 +29,7 @@ a{
 }
 
 .main{
+  margin-top: calc(1.6rem + 35px);
   padding: $padding-page;
   background-color: var(--color-background-main);
   display: flex;
