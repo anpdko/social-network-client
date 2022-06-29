@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styles from './Navbar.module.scss'
 import Button from '../UI/Button/Button';
 import IconUser from '../UI/IconUser/IconUser'
@@ -12,17 +12,23 @@ import {useNavigate} from 'react-router-dom'
 import AlertMenu from '../UI/AlertMenu/AlertMenu';
 import Theme from '../Theme/Theme';
 import {ReactComponent as Logo} from '../../assets/images/logo.svg'
+import {sortedPeople} from '../../store/people/peopleSlice'
+import { useLocation } from 'react-router-dom'
 
 const Navbar = () => {
    const dispatch = useDispatch();
    const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
    const user = useSelector((state)=> state.auth.user)
-   const [textSearch, setTextSearch] = useState('')
+   const {search} = useSelector((state)=> state.people.sorted)
    const navigator = useNavigate()
+   const pathname = useLocation().pathname.split('/')[1]
 
-   useEffect(()=>{
-      console.log(textSearch)
-   }, [textSearch])
+   const getTextSearch = (text) => {
+      if(pathname !== "people" ){
+         navigator('/people')
+      }
+      dispatch(sortedPeople(text))
+   }
 
    return (
       <nav className={styles.nav}>
@@ -36,8 +42,8 @@ const Navbar = () => {
                         icon={<Search className={styles.icon_input}/>} 
                         placeholder="Поиск"
                         type="text"
-                        value = {textSearch}
-                        onChange = {(e) => setTextSearch(e.target.value)}
+                        value = {search}
+                        onChange = {(e) => getTextSearch(e.target.value)}
                      />
                      <Theme/>
                      <AlertMenu items={[

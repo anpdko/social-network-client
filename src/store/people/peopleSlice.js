@@ -8,6 +8,9 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const initialState = {
    people: [],
+   sorted: {
+      search: ""
+   },
    loading: null,
    error: null
 }
@@ -128,7 +131,11 @@ export const peopleSlice = createSlice({
    initialState,
    reducers: {
       setPeople: (state, action) => {
+         // console.log("Заменяю. Страница: ", action.payload.page)
          state.people = action.payload
+      },
+      sortedPeople: (state, action) => {
+         state.sorted.search = action.payload
       },
       subscribe: (state, action) => {
          state.people = state.people.map(user => {
@@ -163,6 +170,6 @@ export const peopleSlice = createSlice({
    }
 })
 
-export const {setPeople, subscribe, unsubscribe} = peopleSlice.actions
+export const {setPeople, sortedPeople, subscribe, unsubscribe} = peopleSlice.actions
 
 export default peopleSlice.reducer
