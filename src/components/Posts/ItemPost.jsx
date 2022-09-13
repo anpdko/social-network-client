@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './Post.module.scss'
 import IconUser from '../UI/IconUser/IconUser';
 import {Heart, HeartFill, ChatRight, ShareFill, Bookmark, BookmarkFill, ThreeDots} from 'react-bootstrap-icons'
@@ -6,9 +6,13 @@ import AlertMenu from '../UI/AlertMenu/AlertMenu';
 import {delayPost, getBookmark, getLike} from '../../store/post/postSlice'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
+import Comments from '../Comments/Comments';
 
 const ItemPost = ({post, user}) => {
    const dispatch = useDispatch()
+   const [isVisible, setVisible] = useState(false)
+   const handleVisibility = () => setVisible(!isVisible)
+
    return (
       <div className='box'>
          <div className={styles.title_box}> 
@@ -45,9 +49,12 @@ const ItemPost = ({post, user}) => {
                <ThreeDots/>
             </AlertMenu>
          </div>
-         <div className='postText' dangerouslySetInnerHTML={{ __html: post.body}} />
+         <div className='postText' dangerouslySetInnerHTML={{ __html: post.body}}/>
          <div className={styles.use_content}>
-               <ChatRight/>
+               <div className= {styles.box_like}>
+                  <ChatRight onClick={handleVisibility}/>
+                  <span style={{marginLeft: 2}}>{post.commentsCount}</span>
+               </div>
                <ShareFill/>
                {post.isBookmark
                   ?<BookmarkFill onClick={()=>dispatch(getBookmark(post._id))}/>
@@ -61,6 +68,7 @@ const ItemPost = ({post, user}) => {
                   <span>{post.countLike}</span>
                </div>
          </div>
+            <Comments isVisible={isVisible} postId={post._id} comments={post.comments}/>
       </div>
    );
 };

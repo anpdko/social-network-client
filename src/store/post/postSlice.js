@@ -159,6 +159,30 @@ export const createPost = createAsyncThunk(
    }
 )
 
+export const createCommentPost = createAsyncThunk(
+   'posts/createPost',
+   async (data, thunkAPI) => {
+      try{
+         const res = await axios.post(API_URL + 'api/posts/comments/add', {
+            comment: data.comment,
+            postId: data.postId,
+         },{
+            headers: authHeader()
+         })
+         if(res.statusText !== 'OK'){
+            throw new Error('Server error');
+         }
+         thunkAPI.dispatch(addComment({postId: data.postId, data: res.data}))
+      }
+      catch(error){
+         if(authService.isAuth(error.response.status)){
+            thunkAPI.dispatch(authLogout())
+         }
+         return thunkAPI.rejectWithValue(error.message)
+      }
+   }
+)
+
 export const delayPost = createAsyncThunk(
    'posts/delayPost',
    async (id, thunkAPI) => {
@@ -223,11 +247,10 @@ export const postSlice = createSlice({
    initialState,
    reducers: {
       setPosts: (state, action) => {
-         // console.log("Заменяю. Страница: ", action.payload.page)
+         console.log("Заменяю. Страница: ", action.payload)
          state.posts = action.payload.posts
       },
       addArrPosts: (state, action) => {
-         // console.log("Добавляю. Страница: ", action.payload.page)
          state.posts = [...state.posts, ...action.payload.posts]
       },
       addPost: (state, action) => {
@@ -254,6 +277,16 @@ export const postSlice = createSlice({
             }
             return post
 
+         })
+      },
+      addComment: (state, action) => {
+         state.posts = state.posts.map(post => {
+            if(action.payload.postId === post._id){
+               const comments = post.comments
+               comments.push(action.payload.data)
+               return { ...post, comments: comments }
+            }
+            return post
          })
       }
    },
@@ -325,6 +358,6 @@ export const postSlice = createSlice({
    }
 })
 
-export const { setPosts, addArrPosts, addPost, removePost, bookmaekPost, likePost } = postSlice.actions
+export const { setPosts, addArrPosts, addPost, removePost, bookmaekPost, likePost, addComment } = postSlice.actions
 
 export default postSlice.reducer

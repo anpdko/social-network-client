@@ -35,7 +35,7 @@ const AuthPageLogin = () => {
    }
 
    if(loading){
-      return <Loader/>
+      return <Loader style={{marginTop: 50}}/>
    }
 
    return (
