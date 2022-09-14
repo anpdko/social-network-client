@@ -5,15 +5,15 @@ import { useSelector } from 'react-redux'
 
 const ListComments = ({comments}) => {
    const { userId } = useSelector(state => state.auth.user)
-   const listCommentsEndRef = useRef(null)
+   const listCommentsRef = useRef(null)
 
    useEffect(() => {
-      // listCommentsEndRef.current?.scrollIntoView({ behavior: "smooth" })
-      listCommentsEndRef.current.scrollIntoView();
+      console.log(listCommentsRef)
+      listCommentsRef.current.scrollTop = listCommentsRef.current.scrollHeight;
    }, [comments])
 
    return (
-      <div className={styles.list_comments}>
+      <div className={styles.list_comments} ref={listCommentsRef}>
          {comments.length
             ?comments.map((comment) => 
                comment.userId === userId
@@ -35,7 +35,7 @@ const ListComments = ({comments}) => {
             :<p>Комментариев еще нет</p>
          }
 
-         <div ref={listCommentsEndRef} />
+         <div/>
       </div>
    );
 };
