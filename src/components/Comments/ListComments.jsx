@@ -22,10 +22,10 @@ const ListComments = ({comments}) => {
                         <h4>{comment.name}</h4>
                         <p>{comment.comment}</p>
                      </div>
-                     <IconUser/>
+                     <IconUser img = {comment.imgUrlAvatar}/>
                   </div>
                   :<div key = {comment._id} className={styles.all_user}>
-                     <IconUser/>
+                     <IconUser img = {comment.imgUrlAvatar}/>
                      <div className={styles.content}>
                         <h4>{comment.name}</h4>
                         <p>{comment.comment}</p>

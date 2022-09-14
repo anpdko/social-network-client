@@ -284,7 +284,7 @@ export const postSlice = createSlice({
             if(action.payload.postId === post._id){
                const comments = post.comments
                comments.push(action.payload.data)
-               return { ...post, comments: comments }
+               return { ...post, comments: comments, commentsCount: post.commentsCount+1 }
             }
             return post
          })

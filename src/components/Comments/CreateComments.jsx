@@ -4,13 +4,14 @@ import Input from '../UI/Input/Input'
 import styles from './Comments.module.scss'
 import Button from '../UI/Button/Button'
 import {createCommentPost} from '../../store/post/postSlice'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { 
    ArrowRightSquareFill
 } from 'react-bootstrap-icons'
 
 const CreateComments = ({postId}) => {
    const [commentData, setCommentData] = useState("")
+   const user = useSelector((state)=> state.auth.user)
    const dispatch = useDispatch()
 
    const onCreateComment = () => {
@@ -24,11 +25,19 @@ const CreateComments = ({postId}) => {
       setCommentData("")
    }
 
+   
+   const handleKeyPress = (e) => {
+      if (e.key === "Enter") {
+         onCreateComment()
+      }
+    };
+
 
    return (
       <div className={styles.create_comments}>
-         <IconUser/>
+         <IconUser img={user.imgUrlAvatar}/>
          <Input 
+            onKeyPress={handleKeyPress}
             placeholder="Написать коментарий..."
             onChange={(e)=>setCommentData(e.target.value)}
             value={commentData}
