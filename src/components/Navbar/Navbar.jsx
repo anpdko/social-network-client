@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { changeTogleMenu } from '../../store/toggle/toggleSlice';
 import Input from '../UI/Input/Input';
-import { Search } from 'react-bootstrap-icons'
+import { Search, HouseDoorFill } from 'react-bootstrap-icons'
 import {useNavigate} from 'react-router-dom'
 import AlertMenu from '../UI/AlertMenu/AlertMenu';
 import Theme from '../Theme/Theme';
@@ -22,6 +22,7 @@ const Navbar = () => {
    const {search} = useSelector((state)=> state.people.sorted)
    const navigator = useNavigate()
    const pathname = useLocation().pathname.split('/')[1]
+   const path = useLocation().pathname
 
    const getTextSearch = (text) => {
       if(pathname !== "people" ){
@@ -47,16 +48,16 @@ const Navbar = () => {
                      />
                      <Theme/>
                      <AlertMenu items={[
-                           {
-                              onClick: () => navigator('/user/'+user.userId),
-                              value: "Мой профиль"
-                           },
-                           {
-                              onClick: () => dispatch(authLogout()),
-                              value: "Выйти",
-                           }
-                        ]} 
-                        className={styles.icon_user}
+                        {
+                           onClick: () => navigator('/user/'+user.userId),
+                           value: "Мой профиль"
+                        },
+                        {
+                           onClick: () => dispatch(authLogout()),
+                           value: "Выйти",
+                        }
+                     ]} 
+                     className={styles.icon_user}
                      >
                         <IconUser img={user?.imgUrlAvatar}/>
                         {/* <IconUser className={styles.toggle}/> */}
@@ -69,9 +70,14 @@ const Navbar = () => {
                :<React.Fragment>
                   <Theme/>
                   <div className={styles.nav_left}>
-                     <Link to={'/auth/login'}>
-                        <Button type="fill"><span>Войти</span></Button>
-                     </Link>
+                     {path === '/' 
+                        ?<Link to={'/auth/login'}>
+                           <Button type="fill"><span>Войти</span></Button>
+                        </Link>
+                        :<Link to={'/'}>
+                           <HouseDoorFill  className={styles.border_icon}/>
+                        </Link>
+                     }
                   </div>
                </React.Fragment>
             }

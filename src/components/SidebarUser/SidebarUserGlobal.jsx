@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styles from './SidebarUser.module.scss'
 import { HouseDoorFill, GearFill } from 'react-bootstrap-icons'
 import {Link, useLocation} from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {closeTogleMenu} from '../../store/toggle/toggleSlice'
 
 const SidebarUserGlobal = () => {
    const location = useLocation()
+   const dispatch = useDispatch()
    const toggleMenu = useSelector((state)=> state.toggle.toggleMenu)
    const [ list, setList ] = useState([
       {
@@ -27,6 +29,7 @@ const SidebarUserGlobal = () => {
    ])
 
    const isActive = (id) => {
+      dispatch(closeTogleMenu())
       setList(list.map(item=> {
          if(item.id === id){
             return { ...item, active: true }

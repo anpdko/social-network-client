@@ -42,17 +42,17 @@ const AuthPageRegister = () => {
    return (
       <React.Fragment>
          <h2 className={styles.title}>Начало работы!</h2>
-         <h5 className={styles.sub_title}>Создайте учетную запись, чтобы продолжить и общаться с людьми.</h5>
+         <h5 className={styles.sub_title}>Создайте учетную запись, чтобы продолжить пользоваться приложением.</h5>
          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.group_btn}>
                <Button type="empty">
                   <Google size={18} />
                   Войти через Google
                </Button>
-               <Button type="empty">
+               {/* <Button type="empty">
                   <Facebook size={18} />
                   Войти через Facebook
-               </Button>
+               </Button> */}
             </div>
             <div className={styles.text_hr}>
                <span></span>
@@ -124,8 +124,12 @@ const AuthPageRegister = () => {
                />
             </div>
             <Button type="fillSubmit">Зарегистрироваться</Button>
-
-            <Link className={styles.link} to={"/auth/login"}>У вас уже есть аккаунт?</Link>
+            <div  className={styles.group_link}>
+               <Link className={styles.link} to={"/auth/login"}>У вас уже есть аккаунт?</Link>
+               <Link  to={"/auth/login"}>
+                  <Button>Войти в аккаунт</Button>
+               </Link>
+            </div>
          </form>
       </React.Fragment>
    );

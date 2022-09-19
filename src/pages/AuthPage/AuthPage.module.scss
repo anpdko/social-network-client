@@ -46,6 +46,14 @@
       }
    }
 
+   .group_link{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+   }
+
    .text_hr{
       margin: 0;
       display: flex;
@@ -68,7 +76,7 @@
    }
 
    .link{
-      font-weight: bold;
+      // font-weight: bold;
       transition: 0.1s;
    }
    .link:hover{

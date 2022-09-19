@@ -48,10 +48,10 @@ const AuthPageLogin = () => {
                   <Google size={18} />
                   Войти через Google
                </Button>
-               <Button type="empty">
+               {/* <Button type="empty">
                   <Facebook size={18} />
                   Войти через Facebook
-               </Button>
+               </Button> */}
             </div>
             <div className={styles.text_hr}>
                <span></span>
@@ -92,7 +92,12 @@ const AuthPageLogin = () => {
                />
             </div>
             <Button type="fillSubmit">Войти</Button>
-            <Link className={styles.link} to={"/auth/register"}>У вас еще нет аккаунта?</Link>
+            <div  className={styles.group_link}>
+               <Link className={styles.link} to={"/auth/register"}>У вас еще нет аккаунта?</Link>
+               <Link  to={"/auth/register"}>
+                  <Button>Создать аккаунт</Button>
+               </Link>
+            </div>
          </form>
       </React.Fragment>
    );
