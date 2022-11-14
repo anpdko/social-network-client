@@ -8,7 +8,7 @@
 
 Страница с новостями:
 
-![Image alt](https://github.com/mrsrtAndrey/social-network-client/blob/main/src/screen/3.jpg)
+![Image alt](https://github.com/mrsrtAndrey/social-network-client/blob/main/src/screen/2.jpg)
 
 Страница черной темы:
 
