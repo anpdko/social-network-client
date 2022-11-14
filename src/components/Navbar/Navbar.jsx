@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Navbar.module.scss'
+import styles from './Navbar.module.scss' 
 import Button from '../UI/Button/Button';
 import IconUser from '../UI/IconUser/IconUser'
 import { authLogout } from '../../store/auth/authSlice'
