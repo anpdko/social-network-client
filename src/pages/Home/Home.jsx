@@ -29,7 +29,7 @@ const Home = () => {
          }
          setPage(page+1)
       }
-   }, [dispatch, isBottom])
+   }, [loading, page, dispatch, isBottom, sorted.value])
 
    const changeSelect = (e) => {
       if(sorted.value !== e.value){

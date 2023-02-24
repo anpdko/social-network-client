@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styles from './SidebarUser.module.scss'
 import { HouseDoorFill, GearFill } from 'react-bootstrap-icons'
 import {Link, useLocation} from 'react-router-dom'
@@ -28,7 +28,7 @@ const SidebarUserGlobal = () => {
       },
    ])
 
-   const isActive = (id) => {
+   const isActive = useCallback((id) => {
       dispatch(closeTogleMenu())
       setList(list.map(item=> {
          if(item.id === id){
@@ -36,7 +36,7 @@ const SidebarUserGlobal = () => {
          }
          return { ...item, active: false }
       }))
-   }
+   }, [dispatch, list])
 
    useEffect(()=>{
       list.forEach(item => {
@@ -44,7 +44,7 @@ const SidebarUserGlobal = () => {
             isActive(item.id)
          }
       })
-   }, [location.pathname])
+   }, [isActive, list, location.pathname])
 
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>

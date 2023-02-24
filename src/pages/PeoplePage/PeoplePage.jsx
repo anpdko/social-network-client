@@ -25,7 +25,7 @@ const PeoplePage = () => {
       else{
          dispatch(getPeople())
       }
-   }, [dispatch, youUserId])
+   }, [locationPage, dispatch, youUserId])
 
    
    useEffect(() => {

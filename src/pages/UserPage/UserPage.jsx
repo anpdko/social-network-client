@@ -34,7 +34,7 @@ const MyPage = () => {
          dispatch(getPostsUser({userId: youUserId, page: page}))
          setPage(page+1)
       }
-   }, [isBottom])
+   }, [dispatch, loading, page, youUserId, isBottom])
 
    return (
       <main className="contant">

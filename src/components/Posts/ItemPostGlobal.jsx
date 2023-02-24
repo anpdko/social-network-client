@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Post.module.scss'
 import IconUser from '../UI/IconUser/IconUser';
 import {Heart, ChatRight, ShareFill, Bookmark, ThreeDots} from 'react-bootstrap-icons'

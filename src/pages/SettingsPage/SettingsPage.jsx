@@ -12,15 +12,15 @@ import uploadImg from '../../services/Upload/upload.services'
 
 const SettingsPage = () => {
    const dispatch = useDispatch()
-   const userAuth = useSelector((state) => state.auth.user);
+   const {token, userId} = useSelector((state) => state.auth.user);
    const { user } = useSelector((state) => state.user);
    const [discription, setDiscription] = useState(null)
    const [img, setImage] = useState(null)
    const [isLoader, setIsLoader] = useState(false)
 
    useEffect(() => {
-      dispatch(getUser(userAuth.userId))
-   }, [userAuth.token])
+      dispatch(getUser(userId))
+   }, [userId, dispatch, token])
 
    useEffect(() => {
       setDiscription(user?.discription)
@@ -40,7 +40,7 @@ const SettingsPage = () => {
             alert("Ошибка загрузки картинки на сервер, попробуйте позже!")
          }
       }
-   }, [img])
+   }, [dispatch, img])
 
    return (
       <main className="contant box">

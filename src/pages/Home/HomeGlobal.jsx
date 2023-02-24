@@ -16,7 +16,7 @@ const HomeGlobal = () => {
          dispatch(getGlobalPosts({page: page}))
          setPage(page+1)
       }
-   }, [dispatch, isBottom])
+   }, [loading, page, dispatch, isBottom])
 
    return (
       <main className="contant">

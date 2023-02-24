@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ListPost from '../../components/Posts/ListPost';
 import {useDispatch, useSelector } from 'react-redux'
 import {getBookmarkPosts} from '../../store/post/postSlice'
