@@ -12,6 +12,7 @@ const initialState = {
    error: null
 }
 
+// тестовый коментарий
 
 export const getBookmarkPosts = createAsyncThunk(
    'posts/getBookmarkPosts',
