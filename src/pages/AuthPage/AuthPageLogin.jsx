@@ -1,7 +1,7 @@
 import React, { useState, useEffect  } from "react";
 import Button from '../../components/UI/Button/Button';
 import styles from './AuthPage.module.scss'
-import {Google, Facebook, At, Lock} from 'react-bootstrap-icons'
+import {Google, At, Lock} from 'react-bootstrap-icons'
 import Input from '../../components/UI/Input/Input';
 import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
