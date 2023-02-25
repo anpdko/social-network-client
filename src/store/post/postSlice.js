@@ -44,6 +44,7 @@ export const getPosts = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/posts/all?page='+ page, {
             headers: authHeader()
          })
+         console.log("res: ", res)
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
