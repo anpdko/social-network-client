@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import {closeTogleMenu} from '../../store/toggle/toggleSlice'
 
 const SidebarUserGlobal = () => {
-   const location = useLocation()
+   const location = useLocation().pathname.split('/')[1]
    const dispatch = useDispatch()
+   const [active, setActive] = useState(0)
    const toggleMenu = useSelector((state)=> state.toggle.toggleMenu)
    const [ list, setList ] = useState([
       {
@@ -28,23 +29,19 @@ const SidebarUserGlobal = () => {
       },
    ])
 
-   const isActive = useCallback((id) => {
+   const isActive = useCallback(() => {
       dispatch(closeTogleMenu())
-      setList(list.map(item=> {
-         if(item.id === id){
+      setList(l => l.map(item=> {
+         if(item.id === active || item.link === "/" + location){
             return { ...item, active: true }
          }
          return { ...item, active: false }
       }))
-   }, [dispatch, list])
+   }, [dispatch, location, active])
 
    useEffect(()=>{
-      list.forEach(item => {
-         if(item.link === location.pathname){
-            isActive(item.id)
-         }
-      })
-   }, [isActive, list, location.pathname])
+      isActive()
+   }, [isActive])
 
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
@@ -56,7 +53,7 @@ const SidebarUserGlobal = () => {
                      className={item.active?styles.active:''}
                      onClick={item.onClick}
                   >
-                     <Link to={item.link} className={styles.menu_link} onClick={()=>isActive(item.id)}>
+                     <Link to={item.link} className={styles.menu_link} onClick={()=>setActive(item.id)}>
                         {item.icon}
                         {item.title}
                      </Link>

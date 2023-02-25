@@ -10,6 +10,7 @@ import {changeTogleMenu, closeTogleMenu} from '../../store/toggle/toggleSlice'
 const SidebarUser = () => {
    const location = useLocation().pathname.split('/')[1]
    const dispatch = useDispatch();
+   const [active, setActive] = useState(0)
    const user = useSelector((state)=> state.auth.user)
    const toggleMenu = useSelector((state)=> state.toggle.toggleMenu)
    const [ list, setList ] = useState([
@@ -55,28 +56,24 @@ const SidebarUser = () => {
       }
    ])
 
-   const isActive = useCallback((id) => {
+   const isActive = useCallback(() => {
       dispatch(closeTogleMenu())
-      setList(list.map(item=> {
-         if(item.id === id){
+      setList(l => l.map(item=> {
+         if(item.id === active || item.link === "/" + location){
             return { ...item, active: true }
          }
          return { ...item, active: false }
       }))
-   }, [dispatch, list])
+   }, [dispatch, location, active])
 
    useEffect(()=>{
-      list.forEach(item => {
-         if(item.link === "/" + location){
-            isActive(item.id)
-         }
-      })
-   }, [isActive, list, location])
+      isActive()
+   }, [isActive])
 
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
          <div className={styles.user_block}>
-            <NavLink to={"/user" + user.userId} onClick={()=>isActive(2)}>
+            <NavLink to={"/user" + user.userId} onClick={()=>setActive(2)}>
                <IconUser img={user.imgUrlAvatar}/>
                <p>{user.name?user.name:"Неизвестный"}</p>
             </NavLink>
@@ -92,7 +89,7 @@ const SidebarUser = () => {
                      className={item.active?styles.active:''}
                      onClick={item.onClick}
                   >
-                     <NavLink to={item.link} className={styles.menu_link} onClick={()=>isActive(item.id)}>
+                     <NavLink to={item.link} className={styles.menu_link} onClick={()=>setActive(item.id)}>
                         {item.icon}
                         {item.title}
                      </NavLink>
