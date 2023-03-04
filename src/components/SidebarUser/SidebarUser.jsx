@@ -56,20 +56,18 @@ const SidebarUser = () => {
       }
    ])
 
-   const isActive = useCallback(() => {
+   useEffect(()=>{
       dispatch(closeTogleMenu())
+      const isLocationActive = list.some(item => item.link === "/" + location)
+
       setList(l => l.map(item=> {
-         if(item.id === active || item.link === "/" + location){
+         if(item.id === active && !isLocationActive || item.link === "/" + location){
             return { ...item, active: true }
          }
          return { ...item, active: false }
       }))
    }, [dispatch, location, active])
 
-   useEffect(()=>{
-      isActive()
-   }, [isActive])
-   
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
          <div className={styles.user_block}>
