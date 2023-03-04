@@ -22,7 +22,7 @@ export const getPeople = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/people/all', {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error("Server error");
          }
          thunkAPI.dispatch(setPeople(res.data))
@@ -45,7 +45,7 @@ export const getPeopleFollowers = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/people/followers/' + userId, {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error("Server error");
          }
          thunkAPI.dispatch(setPeople(res.data))
@@ -68,7 +68,7 @@ export const getPeopleFollowing = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/people/following/' + userId, {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error("Server error");
          }
          thunkAPI.dispatch(setPeople(res.data))

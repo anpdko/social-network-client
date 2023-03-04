@@ -21,7 +21,7 @@ export const getBookmarkPosts = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/posts/bookmark/all', {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          thunkAPI.dispatch(setPosts(res.data))
@@ -45,16 +45,12 @@ export const getPosts = createAsyncThunk(
             headers: authHeader()
          })
          console.log("res: ", res)
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
-         console.log("page", res.data.page)
-         if(res.data.page === 1){
-            thunkAPI.dispatch(setPosts(res.data))
-         }
-         else{
-            thunkAPI.dispatch(addArrPosts(res.data))
-         }
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -68,21 +64,16 @@ export const getPosts = createAsyncThunk(
 )
 
 export const getGlobalPosts = createAsyncThunk(
-   'posts/getGlobalPosts',
+   'posts/getPosts',
    async ({page}, thunkAPI) => {
       try{
          const res = await axios.get(API_URL + 'api/posts/global/all?page='+ page)
-         console.log(res)
-         console.log("page", res.data.page)
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
-         if(res.data.page === 1){
-            thunkAPI.dispatch(setPosts(res.data))
-         }
-         else{
-            thunkAPI.dispatch(addArrPosts(res.data))
-         }
+         res.data.page === 1
+            ?thunkAPI.dispatch(setPosts(res.data))
+            :thunkAPI.dispatch(addArrPosts(res.data))
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -96,13 +87,13 @@ export const getGlobalPosts = createAsyncThunk(
 )
 
 export const getPostsFollowing = createAsyncThunk(
-   'posts/getPostsFollowing',
+   'posts/getPosts',
    async ({page}, thunkAPI) => {
       try{
          const res = await axios.get(`${API_URL}api/posts/following?page=${page}`, {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          res.data.page === 1
@@ -127,7 +118,7 @@ export const getPostsUser = createAsyncThunk(
          const res = await axios.get(`${API_URL}api/posts/all/${userId}?page=${page}`, {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          res.data.page === 1
@@ -156,7 +147,7 @@ export const createPost = createAsyncThunk(
          },{
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          thunkAPI.dispatch(addPost(res.data))
@@ -171,7 +162,7 @@ export const createPost = createAsyncThunk(
 )
 
 export const createCommentPost = createAsyncThunk(
-   'posts/createCommentPost',
+   'posts/createPost',
    async (data, thunkAPI) => {
       try{
          const res = await axios.post(API_URL + 'api/posts/comments/add', {
@@ -180,7 +171,7 @@ export const createCommentPost = createAsyncThunk(
          },{
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          thunkAPI.dispatch(addComment({postId: data.postId, data: res.data}))
@@ -201,7 +192,7 @@ export const delayPost = createAsyncThunk(
          const res = await axios.delete(API_URL + 'api/posts/'+ id, {
             headers: authHeader()
         })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          thunkAPI.dispatch(removePost(id))

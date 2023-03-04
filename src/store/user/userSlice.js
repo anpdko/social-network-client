@@ -19,7 +19,7 @@ export const getUser = createAsyncThunk(
          const res = await axios.get(API_URL + 'api/user/'+ userId, {
             headers: authHeader()
          })
-         if(res.statusText !== 'OK'){
+         if(res.status !== 200){
             throw new Error('Server error');
          }
          thunkAPI.dispatch(setUser(res.data))
