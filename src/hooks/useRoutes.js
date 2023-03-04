@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Routes, Route } from 'react-router-dom'
+
 import AuthPage from "../pages/AuthPage/AuthPage";
 import Home from "../pages/Home/Home";
 import UserPage from "../pages/UserPage/UserPage"
