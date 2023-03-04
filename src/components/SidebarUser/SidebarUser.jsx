@@ -69,11 +69,11 @@ const SidebarUser = () => {
    useEffect(()=>{
       isActive()
    }, [isActive])
-
+   
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
          <div className={styles.user_block}>
-            <NavLink to={"/user" + user.userId} onClick={()=>setActive(2)}>
+            <NavLink to={"/user/" + user.userId} onClick={()=>setActive(2)}>
                <IconUser img={user.imgUrlAvatar}/>
                <p>{user.name?user.name:"Неизвестный"}</p>
             </NavLink>
