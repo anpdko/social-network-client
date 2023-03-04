@@ -72,10 +72,11 @@ export const getGlobalPosts = createAsyncThunk(
    async ({page}, thunkAPI) => {
       try{
          const res = await axios.get(API_URL + 'api/posts/global/all?page='+ page)
+         console.log(res)
+         console.log("page", res.data.page)
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         console.log("page", res.data.page)
          if(res.data.page === 1){
             thunkAPI.dispatch(setPosts(res.data))
          }
