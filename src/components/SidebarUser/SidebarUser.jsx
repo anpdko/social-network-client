@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './SidebarUser.module.scss'
 import { PersonFill, HouseDoorFill, GearFill, ArrowRightCircleFill, BookmarkFill, PeopleFill } from 'react-bootstrap-icons'
 import {NavLink, useLocation} from 'react-router-dom'
@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import {changeTogleMenu, closeTogleMenu} from '../../store/toggle/toggleSlice'
 
 const SidebarUser = () => {
-   const location = useLocation().pathname.split('/')[1]
+   const location = useLocation().pathname
+   console.log(location)
    const dispatch = useDispatch();
-   const [active, setActive] = useState(0)
    const user = useSelector((state)=> state.auth.user)
    const toggleMenu = useSelector((state)=> state.toggle.toggleMenu)
    const [ list, setList ] = useState([
@@ -58,20 +58,18 @@ const SidebarUser = () => {
 
    useEffect(()=>{
       dispatch(closeTogleMenu())
-      const isLocationActive = list.some(item => item.link === "/" + location)
-
       setList(l => l.map(item=> {
-         if(item.id === active && !isLocationActive || item.link === "/" + location){
+         if(item.link === location){
             return { ...item, active: true }
          }
          return { ...item, active: false }
-      }))
-   }, [dispatch, location, active])
+      }))  
+   }, [dispatch, location])
 
    return (
       <div className={toggleMenu?styles.sidebar+ " "+ styles.active:styles.sidebar}>
          <div className={styles.user_block}>
-            <NavLink to={"/user/" + user.userId} onClick={()=>setActive(2)}>
+            <NavLink to={"/user/" + user.userId}>
                <IconUser img={user.imgUrlAvatar}/>
                <p>{user.name?user.name:"Неизвестный"}</p>
             </NavLink>
@@ -87,7 +85,7 @@ const SidebarUser = () => {
                      className={item.active?styles.active:''}
                      onClick={item.onClick}
                   >
-                     <NavLink to={item.link} className={styles.menu_link} onClick={()=>setActive(item.id)}>
+                     <NavLink to={item.link} className={styles.menu_link}>
                         {item.icon}
                         {item.title}
                      </NavLink>
