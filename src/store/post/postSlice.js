@@ -48,9 +48,13 @@ export const getPosts = createAsyncThunk(
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         res.data.page === 1
-            ?thunkAPI.dispatch(setPosts(res.data))
-            :thunkAPI.dispatch(addArrPosts(res.data))
+         console.log("page", res.data.page)
+         if(res.data.page === 1){
+            thunkAPI.dispatch(setPosts(res.data))
+         }
+         else{
+            thunkAPI.dispatch(addArrPosts(res.data))
+         }
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -64,16 +68,20 @@ export const getPosts = createAsyncThunk(
 )
 
 export const getGlobalPosts = createAsyncThunk(
-   'posts/getPosts',
+   'posts/getGlobalPosts',
    async ({page}, thunkAPI) => {
       try{
          const res = await axios.get(API_URL + 'api/posts/global/all?page='+ page)
          if(res.statusText !== 'OK'){
             throw new Error('Server error');
          }
-         res.data.page === 1
-            ?thunkAPI.dispatch(setPosts(res.data))
-            :thunkAPI.dispatch(addArrPosts(res.data))
+         console.log("page", res.data.page)
+         if(res.data.page === 1){
+            thunkAPI.dispatch(setPosts(res.data))
+         }
+         else{
+            thunkAPI.dispatch(addArrPosts(res.data))
+         }
       }
       catch(error){
          if(authService.isAuth(error.response.status)){
@@ -87,7 +95,7 @@ export const getGlobalPosts = createAsyncThunk(
 )
 
 export const getPostsFollowing = createAsyncThunk(
-   'posts/getPosts',
+   'posts/getPostsFollowing',
    async ({page}, thunkAPI) => {
       try{
          const res = await axios.get(`${API_URL}api/posts/following?page=${page}`, {
@@ -162,7 +170,7 @@ export const createPost = createAsyncThunk(
 )
 
 export const createCommentPost = createAsyncThunk(
-   'posts/createPost',
+   'posts/createCommentPost',
    async (data, thunkAPI) => {
       try{
          const res = await axios.post(API_URL + 'api/posts/comments/add', {
